@@ -1,0 +1,18 @@
+{
+  "authenticated": true,
+  "server_port": 9000,
+  "username": "jian0209",
+  "pass_key": "I4RHB54V6TBZRYUEEXID23V2VY",
+  "proxy_url": [
+    {
+      "id": 1,
+      "name": "w",
+      "url": "http://127.0.0.1:10090"
+    },
+    {
+      "id": 2,
+      "name": "x",
+      "url": "http://127.0.0.1:10091"
+    }
+  ]
+}
