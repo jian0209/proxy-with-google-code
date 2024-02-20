@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"os/exec"
@@ -197,6 +198,37 @@ func getProxyUrl() {
 		func(p ProxyUrlType) {
 			http.HandleFunc(fmt.Sprintf("/%s", p.Name), func(w http.ResponseWriter, r *http.Request) {
 				Log("Url: " + r.RequestURI + ", Request from " + r.RemoteAddr)
+				proxyUrl := func() {
+					proxyReq, err := http.NewRequest(r.Method, p.Url, r.Body)
+					if err != nil {
+						ErrorLog(err.Error())
+						http.Error(w, "Error creating proxy request: "+err.Error(), http.StatusInternalServerError)
+						return
+					}
+
+					for name, values := range r.Header {
+						for _, value := range values {
+							proxyReq.Header.Add(name, value)
+						}
+					}
+
+					resp, err := http.DefaultTransport.RoundTrip(proxyReq)
+					if err != nil {
+						ErrorLog(err.Error())
+						http.Error(w, "Error sending proxy: "+err.Error(), http.StatusServiceUnavailable)
+						return
+					}
+					defer resp.Body.Close()
+
+					for name, values := range resp.Header {
+						for _, value := range values {
+							w.Header().Add(name, value)
+						}
+					}
+					w.WriteHeader(resp.StatusCode)
+					io.Copy(w, resp.Body)
+				}
+
 				if config.Authenticated != nil && *config.Authenticated {
 					otp := r.Header.Get("x-google-code")
 					if otp == "" {
@@ -211,11 +243,10 @@ func getProxyUrl() {
 						return
 					}
 
-					Log("Valid google code")
-
-					http.Redirect(w, r, p.Url, http.StatusFound)
+					Log("Valid google code, start to proxy the url: " + p.Url)
+					proxyUrl()
 				} else {
-					http.Redirect(w, r, p.Url, http.StatusFound)
+					proxyUrl()
 				}
 			})
 		}(proxy)
