@@ -1,4 +1,4 @@
-## If you are looking for a proxy server that included 2fa authentication, this is the right proxy server you can use.
+## If you are looking for a reverse proxy server that included 2fa authentication, this is the right proxy server you can use.
 
 ## how to use
 - config.json file is required in the root directory of the project. (Can name it yourself, more information please use --help)
