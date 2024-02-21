@@ -1,10 +1,18 @@
 ## If you are looking for a reverse proxy server that included 2fa authentication, this is the right proxy server you can use.
 
+## how to build
+```sh
+git clone https://github.com/jian0209/proxy-with-google-code.git
+cd proxy-with-goog_le-code
+go build
+./proxy-google-code --help
+```
+
 ## how to use
 - config.json file is required in the root directory of the project. (Can name it yourself, more information please use --help)
 - can refer to the config.json.example file for the configuration file format.
 - run the commmand `./proxy_google_code --help` for more information.
-  
+
 ## how it works
 - The proxy server will listen to the port you set in the config.json file. (default is 8080)
 - Proxy server check the code from header named `x-google-code` to verify the 2fa code.
