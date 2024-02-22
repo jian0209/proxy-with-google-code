@@ -3,7 +3,7 @@
 ## how to build
 ```sh
 git clone https://github.com/jian0209/proxy-with-google-code.git
-cd proxy-with-goog_le-code
+cd proxy-with-google-code
 go build
 ./proxy-google-code --help
 ```
