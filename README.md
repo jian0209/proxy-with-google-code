@@ -17,12 +17,21 @@ go build
 - The proxy server will listen to the port you set in the config.json file. (default is 8080)
 - Proxy server check the code from header named `x-google-code` to verify the 2fa code.
 - If the code is correct, the proxy server will forward the request to the target server.
+- Can set up the number of failed attempts before the server will block the ip, using redis to store, limit 5 minutes of blocking.
+- User cannot use the same code to access the server again, the code will be invalid after using it once, using redis to store the code.
 
 ## config.json.example
 ```json
 {
   "authenticated": true, // if true, the proxy server will require 2fa code to access the server
+  "number_of_failed": 5, // the number of failed attempts before the server will block the ip, 0 means no limit
   "server_port": 9000, // the port that the proxy server will listen to (default is 8080)
+  "redis": {
+    "host": "127.0.0.1",
+    "port": "6379",
+    "auth": "", // the password to access the redis server, if no password, leave it empty
+    "db": 0
+  },
   "username": "jian0209", // the username to register the 2fa code
   "pass_key": "", // the pass key to register the 2fa code, it will be generated when you use -g
   "proxy_url": [ // an array of the target server that the proxy server will forward the request to

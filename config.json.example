@@ -1,6 +1,13 @@
 {
   "authenticated": true,
+  "number_of_failed": 5,
   "server_port": 9000,
+  "redis": {
+    "host": "127.0.0.1",
+    "port": "6379",
+    "auth": "",
+    "db": 0
+  },
   "username": "jian0209",
   "pass_key": "",
   "proxy_url": [

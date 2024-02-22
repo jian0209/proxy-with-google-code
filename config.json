@@ -1,6 +1,13 @@
 {
-  "authenticated": true,
+  "authenticated": false,
+  "number_of_failed": 5,
   "server_port": 9000,
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "auth": "5e10Xgv2OTv9gMNPSA9jS45ne9lCvearWVpXRslyjI29lqI7xP4pYVSA196exJ=d6C7=",
+    "db": 0
+  },
   "username": "jian0209",
   "pass_key": "I4RHB54V6TBZRYUEEXID23V2VY",
   "proxy_url": [
@@ -13,6 +20,11 @@
       "id": 2,
       "name": "x",
       "url": "http://127.0.0.1:10091"
+    },
+    {
+      "id": 3,
+      "name": "z",
+      "url": "http://127.0.0.1:9011"
     }
   ]
 }
