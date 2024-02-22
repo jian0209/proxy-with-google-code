@@ -143,7 +143,6 @@ func (p *ProxyServer) proxyUrl(r *http.Request, p2 ProxyUrlType, w http.Response
 		}
 	}
 
-	proxyReq.Header.Del("Transfer-Encoding")
 	resp, err := http.DefaultTransport.RoundTrip(proxyReq)
 	if err != nil {
 		errorLog(err.Error())
