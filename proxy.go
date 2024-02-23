@@ -20,7 +20,10 @@ type ProxyServer struct {
 
 func NewProxyServer() *ProxyServer {
 	return &ProxyServer{
-		Ctx: context.Background(),
+		Port:           8080,
+		Authenticated:  false,
+		NumberOfFailed: 0,
+		Ctx:            context.Background(),
 	}
 }
 

@@ -9,6 +9,8 @@ import (
 	"runtime"
 	"strings"
 	"time"
+
+	"github.com/xlzd/gotp"
 )
 
 func debugLog(msg interface{}) {
@@ -78,4 +80,10 @@ func savePassKeyToFile(secretkey string) {
 	if _, err := os.Stat(configFileName + "''"); err == nil {
 		os.Remove(configFileName + "''")
 	}
+}
+
+func generatePassKey() {
+	passkey = gotp.RandomSecret(16)
+	savePassKeyToFile(passkey)
+	readConfigFile(configFileName)
 }

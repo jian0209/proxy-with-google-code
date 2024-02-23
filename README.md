@@ -8,6 +8,8 @@ go build
 ./proxy-google-code --help
 ```
 
+## build with docker
+
 ## how to use
 - config.json file is required in the root directory of the project. (Can name it yourself, more information please use --help)
 - can refer to the config.json.example file for the configuration file format.
