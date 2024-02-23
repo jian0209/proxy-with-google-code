@@ -9,6 +9,19 @@ go build
 ```
 
 ## build with docker
+```sh
+docker build -t proxy:v1.1.0 .
+docker run -d -p 9000:9000 -v ${PWD}/config.json:/usr/local/config.json --name proxy proxy:v1.1.0
+
+# if you want to use the redis server, you can use the following command
+docker run -d -p 6379:6379 --name redis redis
+
+# to generate the pass key
+docker exec -it proxy /usr/local/proxy_server_386 -g
+
+# get help
+docker exec -it proxy /usr/local/proxy_server_386 --help
+```
 
 ## how to use
 - config.json file is required in the root directory of the project. (Can name it yourself, more information please use --help)
