@@ -43,6 +43,22 @@ func main() {
 		generatePassKey()
 	}
 
+	if config.PassKey == nil {
+		errorLog("No pass_key found in the config file, eg: `\"pass_key\": \"\",`")
+		os.Exit(1)
+	}
+
+	if config.PassKey != nil {
+		passkey = *config.PassKey
+	}
+
+	if passkey == "" {
+		log("No pass_key found in the config file")
+		log("Generating a new secret key...")
+		generatePassKey()
+		generateTOTPWithSecret(passkey)
+	}
+
 	if showQrCode {
 		generateTOTPWithSecret(passkey)
 	}
@@ -58,22 +74,6 @@ func main() {
   -v    verbose output`)
 		}
 		os.Exit(0)
-	}
-
-	if config.PassKey == nil {
-		errorLog("No pass_key found in the config file, eg: `\"pass_key\": \"\",`")
-		os.Exit(1)
-	}
-
-	if config.PassKey != nil {
-		passkey = *config.PassKey
-	}
-
-	if passkey == "" {
-		log("No pass_key found in the config file")
-		log("Generating a new secret key...")
-		generatePassKey()
-		generateTOTPWithSecret(passkey)
 	}
 
 	if config.ProxyUrl == nil {
