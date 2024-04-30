@@ -52,14 +52,12 @@ func main() {
 		passkey = *config.PassKey
 	}
 
-	if passkey == "" {
-		log("No pass_key found in the config file")
-		log("Generating a new secret key...")
-		generatePassKey()
-		generateTOTPWithSecret(passkey)
-	}
-
 	if showQrCode {
+		if passkey == "" {
+			log("No pass_key found in the config file")
+			log("Generating a new secret key...")
+			generatePassKey()
+		}
 		generateTOTPWithSecret(passkey)
 	}
 
@@ -79,6 +77,13 @@ func main() {
 	if config.ProxyUrl == nil {
 		errorLog("No proxy_url found in the config file")
 		os.Exit(1)
+	}
+
+	if passkey == "" {
+		log("No pass_key found in the config file")
+		log("Generating a new secret key...")
+		generatePassKey()
+		generateTOTPWithSecret(passkey)
 	}
 
 	redisConn = redisClient.Conn()
